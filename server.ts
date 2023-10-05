@@ -4,7 +4,7 @@
  */
 import dataErasure from './routes/dataErasure'
 import fs = require('fs')
-import { Request, Response, NextFunction } from 'express'
+import { type Request, type Response, type NextFunction } from 'express'
 import { sequelize } from './models'
 import { UserModel } from './models/user'
 import { QuantityModel } from './models/quantity'
@@ -86,6 +86,9 @@ const recycles = require('./routes/recycles')
 const b2bOrder = require('./routes/b2bOrder')
 const showProductReviews = require('./routes/showProductReviews')
 const createProductReviews = require('./routes/createProductReviews')
+const checkKeys = require('./routes/checkKeys')
+const nftMint = require('./routes/nftMint')
+const web3Wallet = require('./routes/web3Wallet')
 const updateProductReviews = require('./routes/updateProductReviews')
 const likeProductReviews = require('./routes/likeProductReviews')
 const security = require('./lib/insecurity')
@@ -124,7 +127,7 @@ const startupGauge = new client.Gauge({
 })
 
 // Wraps the function and measures its (async) execution time
-const collectDurationPromise = (name: string, func: Function) => {
+const collectDurationPromise = (name: string, func: any) => {
   return async (...args: any) => {
     const end = startupGauge.startTimer({ task: name })
     const res = await func(...args)
@@ -214,7 +217,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   /* Create middleware to change paths from the serve-index plugin from absolute to relative */
   const serveIndexMiddleware = (req: Request, res: Response, next: NextFunction) => {
     const origEnd = res.end
-    // @ts-expect-error
+    // @ts-expect-error FIXME assignment broken due to seemingly void return value
     res.end = function () {
       if (arguments.length) {
         const reqPath = req.originalUrl.replace(/\?.*$/, '')
@@ -231,7 +234,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
           return 'a href="' + relativePath + '"'
         })
       }
-      // @ts-expect-error
+      // @ts-expect-error FIXME passed argument has wrong type
       origEnd.apply(this, arguments)
     }
     next()
@@ -278,7 +281,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
 
   app.use(bodyParser.text({ type: '*/*' }))
   app.use(function jsonParser (req: Request, res: Response, next: NextFunction) {
-    // @ts-expect-error
+    // @ts-expect-error FIXME intentionally saving original request in this property
     req.rawBody = req.body
     if (req.headers['content-type']?.includes('application/json')) {
       if (!req.body) {
@@ -584,6 +587,13 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.patch('/rest/products/reviews', security.isAuthorized(), updateProductReviews())
   app.post('/rest/products/reviews', security.isAuthorized(), likeProductReviews())
 
+  /* Web3 API endpoints */
+  app.post('/rest/web3/submitKey', checkKeys.checkKeys())
+  app.get('/rest/web3/nftUnlocked', checkKeys.nftUnlocked())
+  app.get('/rest/web3/nftMintListen', nftMint.nftMintListener())
+  app.post('/rest/web3/walletNFTVerify', nftMint.walletNFTVerify())
+  app.post('/rest/web3/walletExploitAddress', web3Wallet.contractExploitListener())
+
   /* B2B Order API */
   app.post('/b2b/v2/orders', b2bOrder())
 
@@ -631,7 +641,7 @@ const mimeTypeMap: any = {
 }
 const uploadToDisk = multer({
   storage: multer.diskStorage({
-    destination: (req: Request, file: any, cb: Function) => {
+    destination: (req: Request, file: any, cb: any) => {
       const isValid = mimeTypeMap[file.mimetype]
       let error: Error | null = new Error('Invalid mime type')
       if (isValid) {
@@ -639,7 +649,7 @@ const uploadToDisk = multer({
       }
       cb(error, path.resolve('frontend/dist/frontend/assets/public/images/uploads/'))
     },
-    filename: (req: Request, file: any, cb: Function) => {
+    filename: (req: Request, file: any, cb: any) => {
       const name = security.sanitizeFilename(file.originalname)
         .toLowerCase()
         .split(' ')
@@ -667,7 +677,7 @@ errorhandler.title = `${config.get('application.name')} (Express ${utils.version
 const registerWebsocketEvents = require('./lib/startup/registerWebsocketEvents')
 const customizeApplication = require('./lib/startup/customizeApplication')
 
-export async function start (readyCallback: Function) {
+export async function start (readyCallback: any) {
   const datacreatorEnd = startupGauge.startTimer({ task: 'datacreator' })
   await sequelize.sync({ force: true })
   await datacreator()
@@ -705,5 +715,5 @@ export function close (exitCode: number | undefined) {
 // vuln-code-snippet end exposedMetricsChallenge
 
 // stop server on sigint or sigterm signals
-process.on('SIGINT', () => close(0))
-process.on('SIGTERM', () => close(0))
+process.on('SIGINT', () => { close(0) })
+process.on('SIGTERM', () => { close(0) })

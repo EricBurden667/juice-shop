@@ -275,6 +275,12 @@ mentioned or used!
 
 ### [Google Summer of Code](http://owasp.org/gsoc)
 
+* Student projects from
+  [Google Summer of Code 2023](https://summerofcode.withgoogle.com/archive/2023/projects)
+  * [Companion Guide Tech Stack](https://summerofcode.withgoogle.com/organizations/owasp-foundation/projects/details/h2der3Mf)
+    by Parth Nanda (mentored by Jannik Hollenbach, Björn Kimminich and Shubham Palriwala)
+  * [Hacking the Blockchain: Building Web3 Challenges for OWASP Juice Shop](https://summerofcode.withgoogle.com/organizations/owasp-foundation/projects/details/yabiWLkF)
+    by Rishabh Keshan (mentored by Shubham Palriwala and Björn Kimminich)
 * Student project from
   [Google Summer of Code 2022](https://summerofcode.withgoogle.com/archive/2022/projects)
     * [Replacement for Protractor end-to-end & Frisby API test suite to Cypress](https://summerofcode.withgoogle.com/organizations/owasp-foundation/projects/details/2J1Xedwf)
@@ -302,11 +308,17 @@ mentioned or used!
 
 > Upcoming events are marked with :date:. The availability of link destinations for past events cannot be guaranteed. 
 
+#### 2024
+
+* :date: [OWASP Juice Shop - An Open Source Software and security Fairytale](https://ndc-security.com/agenda/owasp-juice-shop-an-open-source-software-and-security-fairytale-09mg/09ko186cud8) by Björn Kimminich, [NDC Security 2024](https://ndc-security.com/), 11.01.2024
+
 #### 2023
 
-* :date: [Track keynote: OWASP Juice Shop](https://sikkerhetsfestivalen.no/program-2023) by Björn Kimminich, [Sikkerhetsfestivalen 2023](https://sikkerhetsfestivalen.no/). 29.08.2023
-* :date: [Juice Shop Update³](https://god.owasp.de/2023/schedule/index.html) by Björn Kimminich, [German OWASP Day 2023](https://god.owasp.de/2023). 31.05.2023
-* :date: [Juice Shop Training: Train the Trainer Edition](https://god.owasp.de/2023/schedule/index.html) with Björn Kimminich, [German OWASP Day 2023](https://god.owasp.de/2023). 30.05.2023
+* :date: [Juice Shop Training: Train the Trainer Edition](http://www.owaspbenelux.eu/program/training#Bj%C3%B6rn-Kimminich) with Björn Kimminich, [OWASP BeNeLux Days 2023](http://www.owaspbenelux.eu/). 24.11.2023
+* [How Vulnerable is Juice Shop? A Secure Code Review of Insecure Code](https://www.nationalcybersummit.com/Program/2023-Agenda) by Joshua Beck, [National Cyber Summit 2023](https://www.nationalcybersummit.com/Home). 20.09.2023 
+* [Track keynote: OWASP Juice Shop](https://sikkerhetsfestivalen.no/program-2023) by Björn Kimminich, [Sikkerhetsfestivalen 2023](https://sikkerhetsfestivalen.no/). 29.08.2023
+* [Juice Shop Update³](https://god.owasp.de/2023/schedule/index.html) by Björn Kimminich, [German OWASP Day 2023](https://god.owasp.de/2023). 31.05.2023 [YouTube](https://youtu.be/87DuRYwXtxk)
+* [Juice Shop Training: Train the Trainer Edition](https://god.owasp.de/2023/schedule/index.html) with Björn Kimminich, [German OWASP Day 2023](https://god.owasp.de/2023). 30.05.2023
 * [OWASP Juice Shop](https://www.meetup.com/owasp-chapter-netherlands-meetup/events/292323208)
   by Björn Kimminich, [April 2023 OWASP Chapter Netherlands Meetup](https://www.meetup.com/owasp-chapter-netherlands-meetup/), 20.04.2023 [YouTube](https://www.youtube.com/live/Bhp3LpgtNZ4?feature=share&t=3856)
 * [Squeezing the last drop out of OWASP Juice Shop](https://owasp2023globalappsecdublin.sched.com/event/1FWfq/squeezing-the-last-drop-out-of-owasp-juice-shop) by Björn Kimminich, [OWASP 2023 Global AppSec Dublin](https://dublin.globalappsec.org/), 15.02.2023  [YouTube](https://youtu.be/m1f2fPC8hLU)

@@ -7,16 +7,16 @@ import { MatTableDataSource } from '@angular/material/table'
 import { DomSanitizer } from '@angular/platform-browser'
 import { ChallengeService } from '../Services/challenge.service'
 import { ConfigurationService } from '../Services/configuration.service'
-import { AfterViewInit, Component, NgZone, OnInit } from '@angular/core'
+import { type AfterViewInit, Component, NgZone, type OnInit } from '@angular/core'
 import { SocketIoService } from '../Services/socket-io.service'
 import { NgxSpinnerService } from 'ngx-spinner'
 import { ActivatedRoute } from '@angular/router'
 
-import { dom, library } from '@fortawesome/fontawesome-svg-core'
+import { library } from '@fortawesome/fontawesome-svg-core'
 import { faStar, faTrophy, faPollH } from '@fortawesome/free-solid-svg-icons'
 import { faGem } from '@fortawesome/free-regular-svg-icons'
 import { faBtc, faGithub, faGitter } from '@fortawesome/free-brands-svg-icons'
-import { Challenge } from '../Models/challenge.model'
+import { type Challenge } from '../Models/challenge.model'
 import { TranslateService } from '@ngx-translate/core'
 import { LocalBackupService } from '../Services/local-backup.service'
 import { MatDialog } from '@angular/material/dialog'
@@ -24,7 +24,6 @@ import { CodeSnippetComponent } from '../code-snippet/code-snippet.component'
 import { CodeSnippetService } from '../Services/code-snippet.service'
 
 library.add(faStar, faGem, faGitter, faGithub, faBtc, faTrophy, faPollH)
-dom.watch()
 
 @Component({
   selector: 'app-score-board',
@@ -132,7 +131,7 @@ export class ScoreBoardComponent implements OnInit, AfterViewInit {
                 challenges[i].hasTutorial = module.hasInstructions(challenges[i].name)
               })
             }
-            challenges[i].hasSnippet = challengesWithCodeSnippet.indexOf(challenges[i].key) > -1
+            challenges[i].hasSnippet = challengesWithCodeSnippet.includes(challenges[i].key)
           }
           this.availableChallengeCategories.sort((a, b) => a.localeCompare(b))
           this.displayedChallengeCategories = localStorage.getItem('displayedChallengeCategories') ? JSON.parse(String(localStorage.getItem('displayedChallengeCategories'))) : this.availableChallengeCategories
@@ -152,12 +151,12 @@ export class ScoreBoardComponent implements OnInit, AfterViewInit {
           }
 
           this.spinner.hide()
-          })
+        })
       }, (err) => {
         this.challenges = []
         console.log(err)
       })
-    }, (err) => console.log(err))
+    }, (err) => { console.log(err) })
 
     this.ngZone.runOutsideAngular(() => {
       this.io.socket().on('challenge solved', (data: any) => {
@@ -178,12 +177,12 @@ export class ScoreBoardComponent implements OnInit, AfterViewInit {
   }
 
   scrollToChallenge (challengeName: string) {
-      const el = document.getElementById(challengeName)
-      if (!el) {
-        console.log(`Challenge ${challengeName} is not visible!`)
-      } else {
-        console.log(`Scrolling to challenge: ${challengeName}`)
-        el.scrollIntoView({ behavior: 'smooth' })
+    const el = document.getElementById(challengeName)
+    if (!el) {
+      console.log(`Challenge ${challengeName} is not visible!`)
+    } else {
+      console.log(`Scrolling to challenge: ${challengeName}`)
+      el.scrollIntoView({ behavior: 'smooth' })
     }
   }
 
@@ -199,9 +198,9 @@ export class ScoreBoardComponent implements OnInit, AfterViewInit {
     } else if (challenge.hintUrl) {
       if (challenge.hint) {
         this.translate.get('CLICK_FOR_MORE_HINTS').subscribe((clickForMoreHints: string) => {
-          challenge.hint += ` ${clickForMoreHints}`
+          challenge.hint = `${challenge.hint} ${clickForMoreHints}`
         }, (translationId: string) => {
-          challenge.hint += ` ${translationId}`
+          challenge.hint = `${challenge.hint} ${translationId}`
         })
       } else {
         this.translate.get('CLICK_TO_OPEN_HINTS').subscribe((clickToOpenHints) => {
@@ -409,9 +408,9 @@ export class ScoreBoardComponent implements OnInit, AfterViewInit {
     const dialogRef = this.dialog.open(CodeSnippetComponent, {
       disableClose: true,
       data: {
-        key: key,
-        name: name,
-        codingChallengeStatus: codingChallengeStatus
+        key,
+        name,
+        codingChallengeStatus
       }
     })
 

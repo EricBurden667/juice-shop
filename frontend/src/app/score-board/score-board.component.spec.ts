@@ -19,7 +19,7 @@ import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatButtonToggleModule } from '@angular/material/button-toggle'
 import { MatIconModule } from '@angular/material/icon'
 import { NgxSpinnerModule } from 'ngx-spinner'
-import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
+import { type ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
 import { ScoreBoardComponent } from './score-board.component'
 import { of, throwError } from 'rxjs'
 import { DomSanitizer } from '@angular/platform-browser'
@@ -33,7 +33,7 @@ import { CodeSnippetService } from '../Services/code-snippet.service'
 import { LocalBackupService } from '../Services/local-backup.service'
 import { ActivatedRoute, RouterModule } from '@angular/router'
 class MockSocket {
-  on (str: string, callback: Function) {
+  on (str: string, callback: any) {
     callback(str)
   }
 }
@@ -100,13 +100,13 @@ describe('ScoreBoardComponent', () => {
         { provide: LocalBackupService, useValue: localBackupService },
         { provide: SocketIoService, useValue: socketIoService },
         {
- provide: ActivatedRoute,
-useValue: {
- snapshot: {
-          queryParams: { challenge: 'value' }
+          provide: ActivatedRoute,
+          useValue: {
+            snapshot: {
+              queryParams: { challenge: 'value' }
+            }
+          }
         }
-}
-}
       ]
     })
       .compileComponents()
